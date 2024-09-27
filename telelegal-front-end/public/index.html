@@ -54,3 +54,50 @@
     -->
   </body>
 </html>
+<!--======================================================-->
+<!-- 
+  <VirtualHost *:80>
+    DocumentRoot /var/www/LOCATION_OF_YOUR_APP
+    ServerName zionvisiontv.com//
+    <Directory "/var/www/LOCATION_OF_YOUR_APP">
+        allow from all
+        AllowOverride All
+        Order allow,deny
+        Options +Indexes
+    </Directory>
+  </VirtualHost>
+ -->
+<!--======================================================-->
+
+<!--======================================================-->
+<!--  
+  <IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /subdirectory
+    RewriteRule ^index\.html$ - [L]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-l
+    RewriteRule . /index.html [L]
+  </IfModule>
+-->
+<!--======================================================-->
+
+<!--======================================================-->
+<!--  
+<VirtualHost *:80>
+    ServerName api.zionvisiontv.com
+    <Location "/">
+        ProxyPreserveHost On
+        ProxyPass http://127.0.0.1:9000/
+        ProxyPassReverse http://127.0.0.1:9000/
+
+        RewriteEngine on
+        RewriteCond ${HTTP:Upgrade} websocket [NC]
+        RewriteCond ${HTTP:Connection} upgrade [NC]
+        RewriteRule .* "wss:/localhost:3000/$1" [P,L]
+
+    </Location>
+</VirtualHost>
+-->
+<!--======================================================-->
